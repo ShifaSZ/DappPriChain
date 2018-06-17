@@ -1,0 +1,18 @@
+geth --identity "GeneTank" --rpc --rpcport "8000" --rpccorsdomain "*" --datadir "/home/genetank/mychain/Ethereum" --port "30303" --nodiscover --ipcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --rpcapi "db,eth,net,web3" --autodag --networkid 9716 --nat "any" console
+
+# https://github.com/ethereum/go-ethereum/wiki/Private-network
+# Create a genesis block for a new private chain
+$ geth --datadir "/home/genetank/mychain/Ethereum" init genesis.json
+
+# Configure a bootstrap node
+$ bootnode --genkey=boot.key
+
+# Run the bootstrap node
+$ bootnode --nodekey=boot.key
+INFO [06-14|15:38:55] UDP listener up                          self=enode://105cb2df56296e27abdbe31eb5ca72a5ace5b3d34e2500bfc4045374b0ebe6571e74b07bbe21c49d7e393cbc8cb9ab09c10d9ee9c951f6b7b7923585320d6c98@[::]:30301
+
+# Run an Ethereum node mining
+geth --datadir "/home/genetank/mychain/Ethereum" --networkid 9716 --bootnodes enode://105cb2df56296e27abdbe31eb5ca72a5ace5b3d34e2500bfc4045374b0ebe6571e74b07bbe21c49d7e393cbc8cb9ab09c10d9ee9c951f6b7b7923585320d6c98@[127.0.0.1]:30301 --mine --minerthreads=1 --etherbase=0xB480c3233e1852Ea00Fd0EEc7149b2a6E67c23B2 --identity "GeneTank" --rpc --rpcport "8000" --rpccorsdomain "*" --port "30303" --rpcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --nat "any" --verbosity "2" console
+
+# Run an Ethereum node not start mining
+geth --datadir "/home/genetank/mychain/Ethereum" --networkid 9716 --bootnodes enode://105cb2df56296e27abdbe31eb5ca72a5ace5b3d34e2500bfc4045374b0ebe6571e74b07bbe21c49d7e393cbc8cb9ab09c10d9ee9c951f6b7b7923585320d6c98@[127.0.0.1]:30301 --etherbase=0xB480c3233e1852Ea00Fd0EEc7149b2a6E67c23B2 --identity "GeneTank" --rpc --rpcport "8000" --rpccorsdomain "*" --port "30303" --rpcapi "admin,db,eth,debug,miner,net,shh,txpool,personal,web3" --nat "any" --verbosity "3" --preload "boot.js" console
