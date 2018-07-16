@@ -77,6 +77,10 @@ export class App  extends React.Component {
   }
 
   render() {
+    //if (Meteor.user() === null)
+    //  return (
+    //    <p> Login Please </p>
+    //  )
     return (
       <div>
         <h1>Hello world</h1>
